@@ -19,8 +19,8 @@ task:
         - env
         - url=https://roms.apon77.workers.dev/ccache/ci3/ccache.tar.gz
         - cd /tmp
-        - aria2c $url -x16 -s50
-        - tar xf ccache.tar.gz
+        - time aria2c $url -x16 -s50
+        - time tar xf ccache.tar.gz
         - rm -rf ccache.tar.gz
     ccache_monitor_script:
         - export CCACHE_DIR=/tmp/ccache
