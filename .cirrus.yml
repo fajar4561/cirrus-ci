@@ -1,0 +1,52 @@
+env:
+    token_telegram: "ENCRYPTED[edf6ced6d21e3a68bcad67912bd239ae2dcae3ed6cf528749afd34e3625a91dbbfaf011e42eaf33478f5bf590ac057eb]"
+    id_telegram: "ENCRYPTED[b6b03567d056d09f982f823dac8599ee6e65ba00638c9f293fcae6969a1c2c28b4e83a8bd985dbbf032ad51c2c911e76]"
+    rclone_config: "ENCRYPTED[be8a27ae4fb88678d3799d29d00434a9564ee7ede094312184c3b1453e6a5abdb9c25d69d4f58d9db24d9abfcdd724a2]"
+
+task:
+    name: Build
+    timeout_in: 120m
+    container:
+      image: inok2341/anu:latest
+      cpu: 8
+      memory: 32G      
+download_ccache_script:
+    - df -h
+    - free -h
+    - nproc
+    - cat /etc/os*
+    - env
+    - url=https://roms.apon77.workers.dev/ccache/ci3/ccache.tar.gz
+    - cd /tmp
+    - aria2c $url -x16 -s50
+    - tar xf ccache.tar.gz
+    - rm -rf ccache.tar.gz
+ccache_monitor_script:
+    - export CCACHE_DIR=/tmp/ccache
+    - sleep 2m
+    - while :
+    - do
+    - ccache -s
+    - echo ''
+    - top -b -i -n 1
+    - sleep 1m
+    - done
+build_rom_script:
+    - mkdir -p /tmp/rom
+    - cd /tmp/rom
+    - repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1 -g default,-device,-mips,-darwin,-notdefault
+    - git clone https://github.com/WalkingDead3/manifest.git --depth 1 -b lineage-18.1 .repo/local_manifests
+    - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync
+    - cd /tmp/rom
+    - . build/envsetup.sh
+    - lunch lineage_juice-userdebug
+    - export CCACHE_DIR=/tmp/ccache
+    - export CCACHE_EXEC=$(which ccache)
+    - export USE_CCACHE=1
+    - ccache -M 20G
+    - ccache -o compression=true
+    - ccache -z
+    - make bacon -j8
+    - cd /tmp
+    - rclone copy /tmp/rom/out/target/product/juice/Lineage*.zip WalkingDead:juice -P
+    
