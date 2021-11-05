@@ -1,6 +1,4 @@
 env:
-    token_telegram: "ENCRYPTED[edf6ced6d21e3a68bcad67912bd239ae2dcae3ed6cf528749afd34e3625a91dbbfaf011e42eaf33478f5bf590ac057eb]"
-    id_telegram: "ENCRYPTED[b6b03567d056d09f982f823dac8599ee6e65ba00638c9f293fcae6969a1c2c28b4e83a8bd985dbbf032ad51c2c911e76]"
     rclone_config: "ENCRYPTED[be8a27ae4fb88678d3799d29d00434a9564ee7ede094312184c3b1453e6a5abdb9c25d69d4f58d9db24d9abfcdd724a2]"
     
 task:
@@ -12,7 +10,7 @@ task:
         memory: 4G
       
     curl_telegram_script:
-        - bash curl_telegram.sh        
+        - bash curl_telegram.sh  # Отсылает информацию о сборке в Telegram      
 task:
     name: Build
     timeout_in: 120m
@@ -35,11 +33,17 @@ task:
     ccache_monitor_script:
         - bash monitor_ccache.sh
     build_rom_script:
+        # Configuring git
         - mkdir -p /tmp/rom
         - cd /tmp/rom
+        - git config --global user.email "lexaxx14@gmail.com"
+        - git config --global user.name "WalkingDead3"
+        - git config --global color.ui "true"
+        # Repo Init/Sync
         - repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1 -g default,-device,-mips,-darwin,-notdefault
         - git clone https://github.com/WalkingDead3/manifest.git --depth 1 -b lineage-18.1 .repo/local_manifests
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync
+        # Build ROM / Upload ROM
         - cd /tmp/rom
         - . build/envsetup.sh
         - lunch lineage_juice-userdebug
