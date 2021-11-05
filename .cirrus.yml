@@ -22,16 +22,6 @@ task:
         - time aria2c $url -x16 -s50
         - time tar xf ccache.tar.gz
         - rm -rf ccache.tar.gz
-    ccache_monitor_script:
-        - export CCACHE_DIR=/tmp/ccache
-        - sleep 2m
-        - while :
-        - do
-        - ccache -s
-        - echo ''
-        - top -b -i -n 1
-        - sleep 1m
-        - done
     build_rom_script:
         - mkdir -p /tmp/rom
         - cd /tmp/rom
