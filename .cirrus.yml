@@ -30,8 +30,8 @@ task:
         - time aria2c $url -x16 -s50
         - time tar xf ccache.tar.gz
         - rm -rf ccache.tar.gz
-    ccache_monitor_script:
-        - bash monitor_ccache.sh
+
+
     build_rom_script:
         # Configuring git
         - mkdir -p /tmp/rom
