@@ -40,7 +40,7 @@ task:
         - git config --global color.ui "true"
         # Repo Init/Sync
         - repo init -u git://github.com/LineageOS/android.git -b lineage-18.1
-        - repo sync
+        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
         # Clone DT/VT/KT/TC
         - git clone https://github.com/WalkingDead3/device_xiaomi_juice -b anu device/xiaomi/juice
         - git clone --depth=1 https://gitlab.com/I-n-o-k/vendor-lime --single-branch -b 11 vendor/xiaomi/juice
