@@ -5,7 +5,7 @@ task:
     name: InfoTG
     timeout_in: 2m
     container:
-        image: inok2341/anu:latest
+        image: walkingdead666/anu:latest
         cpu: 2
         memory: 4G
       
@@ -15,7 +15,7 @@ task:
     name: Build
     timeout_in: 120m
     container:
-      image: inok2341/anu:latest
+      image: walkingdead666/anu:latest
       cpu: 8
       memory: 32G
 
@@ -39,14 +39,17 @@ task:
         - git config --global user.name "WalkingDead3"
         - git config --global color.ui "true"
         # Repo Init/Sync
-        - repo init -q --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1
-        - git clone https://github.com/WalkingDead3/manifest.git --depth 1 -b lineage-18.1 .repo/local_manifests
-        - repo sync -j8 -f --no-clone-bundle --no-tags
-
+        - repo init -u git://github.com/LineageOS/android.git -b lineage-18.1
+        - repo sync
+        # Clone DT/VT/KT/TC
+        - git clone https://github.com/WalkingDead3/device_xiaomi_juice -b anu device/xiaomi/juice
+        - git clone --depth=1 https://gitlab.com/I-n-o-k/vendor-lime --single-branch -b 11 vendor/xiaomi/juice
+        - git clone --depth=1 https://github.com/I-n-o-k/android_kernel_xiaomi_bengal --single-branch -b 11.0 kernel/xiaomi/juice
+        - git clone --depth=1 https://github.com/kdrag0n/proton-clang --single-branch -b master prebuilts/clang/host/linux-x86/clang-proton
+         
     build_rom_script:
-        # Build ROM / Upload ROM
         - cd /tmp/rom
-        - . build/envsetup.sh
+        - source build/envsetup.sh
         - lunch lineage_juice-userdebug
         - export CCACHE_DIR=/tmp/ccache
         - export CCACHE_EXEC=$(which ccache)
@@ -54,7 +57,7 @@ task:
         - ccache -M 20G
         - ccache -o compression=true
         - ccache -z
-        - make bacon -j8
+        - make bacon
         - cd /tmp
         - rclone copy /tmp/rom/out/target/product/juice/Lineage*.zip WalkingDead:juice -P
     
