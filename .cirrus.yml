@@ -31,8 +31,7 @@ task:
         - time tar xf ccache.tar.gz
         - rm -rf ccache.tar.gz
 
-
-    build_rom_script:
+    config_script:
         # Configuring git
         - mkdir -p /tmp/rom
         - cd /tmp/rom
@@ -40,9 +39,11 @@ task:
         - git config --global user.name "WalkingDead3"
         - git config --global color.ui "true"
         # Repo Init/Sync
-        - repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1 -g default,-device,-mips,-darwin,-notdefault
+        - repo init -q --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1
         - git clone https://github.com/WalkingDead3/manifest.git --depth 1 -b lineage-18.1 .repo/local_manifests
-        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync
+        - repo sync -j8 -f --no-clone-bundle --no-tags
+
+    build_rom_script:
         # Build ROM / Upload ROM
         - cd /tmp/rom
         - . build/envsetup.sh
