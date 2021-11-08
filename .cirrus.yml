@@ -15,7 +15,7 @@ task:
     name: Build
     timeout_in: 120m
     container:
-      image: apon77/aosp:cirrus
+      image: walkingdead666/android-builder:latest
       cpu: 8
       memory: 32G
 
