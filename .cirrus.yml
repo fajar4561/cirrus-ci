@@ -15,7 +15,7 @@ task:
     name: Build
     timeout_in: 120m
     container:
-      image: walkingdead666/anu:latest
+      image: apon77/aosp:cirrus
       cpu: 8
       memory: 32G
 
@@ -35,9 +35,6 @@ task:
         # Configuring git
         - mkdir -p /tmp/rom
         - cd /tmp/rom
-        - git config --global user.email "lexaxx14@gmail.com"
-        - git config --global user.name "WalkingDead3"
-        - git config --global color.ui "true"
         # Repo Init/Sync
         - repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1 -g default,-device,-mips,-darwin,-notdefault
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
