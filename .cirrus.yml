@@ -37,17 +37,13 @@ task:
         - cd /tmp/rom
         # Repo Init/Sync
         - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b elle -g default,-device,-mips,-darwin,-notdefault
+        - git clone https://github.com/WalkingProjekt-juice/manifest.git --depth 1 -b EvoX .repo/local_manifests
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-        # Clone DT/VT/KT/TC
-        - git clone https://github.com/WalkingDead3/device_xiaomi_juice -b anu device/xiaomi/juice
-        - git clone --depth=1 https://gitlab.com/I-n-o-k/vendor-lime --single-branch -b 11 vendor/xiaomi/juice
-        - git clone --depth=1 https://github.com/I-n-o-k/android_kernel_xiaomi_bengal --single-branch -b 11.0 kernel/xiaomi/juice
-        - git clone --depth=1 https://github.com/kdrag0n/proton-clang --single-branch -b master prebuilts/clang/host/linux-x86/clang-proton
          
     build_rom_script:
         - cd /tmp/rom
         - source build/envsetup.sh
-        - lunch lineage_juice-userdebug
+        - lunch evolution_juice-userdebug
         - export CCACHE_DIR=/tmp/ccache
         - export CCACHE_EXEC=$(which ccache)
         - export USE_CCACHE=1
@@ -56,5 +52,5 @@ task:
         - ccache -z
         - make bacon
         - cd /tmp
-        - rclone copy /tmp/rom/out/target/product/juice/Lineage*.zip WalkingDead:juice -P
+        - rclone copy /tmp/rom/out/target/product/juice/Evolution*.zip WalkingDead:juice -P
     
