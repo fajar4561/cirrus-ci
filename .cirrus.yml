@@ -39,7 +39,7 @@ task:
         - git config --global user.name "WalkingDead3"
         - git config --global color.ui "true"
         # Repo Init/Sync
-        - repo init -u git://github.com/LineageOS/android.git -b lineage-18.1
+        - repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1 -g default,-device,-mips,-darwin,-notdefault
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
         # Clone DT/VT/KT/TC
         - git clone https://github.com/WalkingDead3/device_xiaomi_juice -b anu device/xiaomi/juice
