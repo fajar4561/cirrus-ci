@@ -5,7 +5,7 @@ task:
     name: InfoTG
     timeout_in: 2m
     container:
-        image: walkingdead666/anu:latest
+        image: walkingdead666/android-builder:latest
         cpu: 2
         memory: 4G
       
