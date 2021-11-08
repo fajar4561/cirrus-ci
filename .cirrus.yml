@@ -36,7 +36,7 @@ task:
         - mkdir -p /tmp/rom
         - cd /tmp/rom
         # Repo Init/Sync
-        - repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-18.1 -g default,-device,-mips,-darwin,-notdefault
+        - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b elle -g default,-device,-mips,-darwin,-notdefault
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
         # Clone DT/VT/KT/TC
         - git clone https://github.com/WalkingDead3/device_xiaomi_juice -b anu device/xiaomi/juice
