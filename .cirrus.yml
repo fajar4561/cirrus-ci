@@ -40,7 +40,7 @@ task:
         - ccache -M 20G
         - ccache -o compression=true
         - ccache -z
-        - make bacon
+        - make evolution
         - cd /tmp
         - rclone copy /tmp/rom/out/target/product/juice/Evolution*.zip WalkingDead:juice -P
     
