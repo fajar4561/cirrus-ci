@@ -2,7 +2,8 @@ env:
     rclone_config: "ENCRYPTED[be8a27ae4fb88678d3799d29d00434a9564ee7ede094312184c3b1453e6a5abdb9c25d69d4f58d9db24d9abfcdd724a2]"
          
 task:
-    name: Telegram Info
+    name: Telegram Info  
+    timeout_in: 2m
     container:
         image: walkingdead666/android-builder:latest
         cpu: 6
@@ -12,6 +13,7 @@ task:
          - bash InfoTG.sh     
 task:
     name: Build
+    timeout_in: 2h
     container:
       image: walkingdead666/android-builder:latest
       cpu: 8
