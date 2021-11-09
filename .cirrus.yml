@@ -7,7 +7,7 @@ task:
         image: walkingdead666/android-builder:latest
         cpu: 6
         memory: 4G
-        
+
    informationbot_script:
         - bash InfoTG.sh     
 task:
