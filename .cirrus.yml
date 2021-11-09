@@ -2,6 +2,15 @@ env:
     rclone_config: "ENCRYPTED[be8a27ae4fb88678d3799d29d00434a9564ee7ede094312184c3b1453e6a5abdb9c25d69d4f58d9db24d9abfcdd724a2]"
          
 task:
+    name: Telegram Info
+    container:
+        image: walkingdead666/android-builder:latest
+        cpu: 6
+        memory: 4G
+        
+   informationbot_script:
+        - bash InfoTG.sh     
+task:
     name: Build
     container:
       image: walkingdead666/android-builder:latest
@@ -9,37 +18,11 @@ task:
       memory: 32G
 
     download_ccache_script:
-        - df -h
-        - free -h
-        - nproc
-        - cat /etc/os*
-        - env
-        - url=https://roms.apon77.workers.dev/ccache/ci3/ccache.tar.gz
-        - cd /tmp
-        - time aria2c $url -x16 -s50
-        - time tar xf ccache.tar.gz
-        - rm -rf ccache.tar.gz
+        - bash download-ccache.sh
 
     config_script:
-        # Configuring git
-        - mkdir -p /tmp/rom
-        - cd /tmp/rom
-        # Repo Init/Sync
-        - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b elle -g default,-device,-mips,-darwin,-notdefault
-        - git clone https://github.com/WalkingProjekt-juice/manifest.git --depth 1 -b EvoX .repo/local_manifests
-        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-        - export CCACHE_DIR=/tmp/ccache
-        - export CCACHE_EXEC=$(which ccache)
-        - export USE_CCACHE=1
-        - ccache -M 20G
-        - ccache -o compression=true
-        - ccache -z
-
+        - bash config-cirrus.sh
+        
     build_rom_script:
-        - cd /tmp/rom
-        - source build/envsetup.sh
-        - lunch evolution_juice-userdebug
-        - make evolution
-        - cd /tmp
-        - rclone copy /tmp/rom/out/target/product/juice/Evolution*.zip WalkingDead:juice -P
+        - bash build_rum.sh
     
