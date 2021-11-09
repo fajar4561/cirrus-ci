@@ -3,7 +3,6 @@ env:
          
 task:
     name: Build
-    timeout_in: 120m
     container:
       image: walkingdead666/android-builder:latest
       cpu: 8
@@ -29,17 +28,17 @@ task:
         - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b elle -g default,-device,-mips,-darwin,-notdefault
         - git clone https://github.com/WalkingProjekt-juice/manifest.git --depth 1 -b EvoX .repo/local_manifests
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-         
-    build_rom_script:
-        - cd /tmp/rom
-        - source build/envsetup.sh
-        - lunch evolution_juice-userdebug
         - export CCACHE_DIR=/tmp/ccache
         - export CCACHE_EXEC=$(which ccache)
         - export USE_CCACHE=1
         - ccache -M 20G
         - ccache -o compression=true
         - ccache -z
+
+    build_rom_script:
+        - cd /tmp/rom
+        - source build/envsetup.sh
+        - lunch evolution_juice-userdebug
         - make evolution
         - cd /tmp
         - rclone copy /tmp/rom/out/target/product/juice/Evolution*.zip WalkingDead:juice -P
