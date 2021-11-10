@@ -5,7 +5,7 @@ free -h
 nproc
 cat /etc/os*
 env
-url=https://roms.apon77.workers.dev/ccache/ci3/ccache.tar.gz
+url=https://anu.inok189.workers.dev/nusantara/ccache.tar.gz
 cd /tmp
 time aria2c $url -x16 -s50
 time tar xf ccache.tar.gz
