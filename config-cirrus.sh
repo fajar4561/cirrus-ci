@@ -5,18 +5,13 @@ free -h
 nproc
 cat /etc/os*
 env
-url=https://anu.inok189.workers.dev/nusantara/ccache.tar.gz
-cd /tmp
-time aria2c $url -x16 -s50
-time tar xf ccache.tar.gz
-rm -rf ccache.tar.gz
 
 # Repo
 echo "Repo Init/Sync"
 mkdir -p /tmp/rom
 cd /tmp/rom
-repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b elle -g default,-device,-mips,-darwin,-notdefault
-git clone https://github.com/WalkingProjekt-juice/manifest.git --depth 1 -b EvoX .repo/local_manifests
+repo init -q --no-repo-verify --depth=1 -u git://github.com/LineageOS/android.git -b lineage-17.1 -g default,-device,-mips,-darwin,-notdefault
+git clone https://github.com/WalkingDead3/manifest.git --depth 1 -b lineage-17.1 .repo/local_manifests
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
 # ccache settings
