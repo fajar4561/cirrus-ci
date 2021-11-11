@@ -1,6 +1,6 @@
 cd /tmp/rom
 source build/envsetup.sh
-lunch evolution_juice-userdebug
-make evolution
+lunch lineage_juice-userdebug
+make bacon
 cd /tmp
-rclone copy /tmp/rom/out/target/product/juice/Evolution*.zip WalkingDead:juice -P
+rclone copy /tmp/rom/out/target/product/juice/Lineage*.zip WalkingDead:juice -P
