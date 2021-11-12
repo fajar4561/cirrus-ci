@@ -15,7 +15,7 @@ task:
     name: Build
     timeout_in: 2h
     container:
-      image: walkingdead666/android-builder:latest
+      dockerfile: Dockerfile
       cpu: 8
       memory: 32G
 
