@@ -5,7 +5,7 @@ free -h
 nproc
 cat /etc/os*
 env
-
+##
 # Repo
 echo "Repo Init/Sync"
 mkdir -p /tmp/rom
