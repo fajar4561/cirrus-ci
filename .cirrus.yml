@@ -2,26 +2,13 @@ env:
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
          
 task:
-    name: Telegram Info  
-    timeout_in: 2m
-    container:
-        image: walkingdead666/android-builder:latest
-        cpu: 6
-        memory: 4G
-        
-    informationbot_script:
-         - bash InfoTG.sh
-task:
     name: Build
-    timeout_in: 2h
+    timeout_in: 480m
     container:
-      dockerfile: Dockerfile
+      image: walkingdead666/android:latest
       cpu: 8
       memory: 32G
 
-    config_script:
-        - bash config-cirrus.sh
-        
-    build_rom_script:
-        - bash build_rum.sh
+    Build-Sync-Upload-script:
+        - bash build.sh
     
