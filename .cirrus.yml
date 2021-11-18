@@ -1,6 +1,7 @@
 env:
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
-         
+    url: "https://roms.apon77.workers.dev/ccache/ci2/ccache.tar.gz"
+    repo_rom: "git://github.com/LineageOS/android.git"
 task:
     name: Build
     timeout_in: 480m
@@ -10,11 +11,21 @@ task:
       memory: 32G
     
     Sync_script:
+        - mkdir -p ~/.config/rclone
+        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
+        - df -h && free -h && nproc && cat /etc/os* && env
+        - cd /tmp
+        - time aria2c $url -x16 -s50
+        - time tar xf ccache.tar.gz
+        - rm -rf ccache.tar.gz
         - mkdir -p /tmp/rom
         - cd /tmp/rom
-        - repo init --depth=1 --no-repo-verify -u https://github.com/ResurrectionRemix/platform_manifest.git -b Q
-        - git clone https://github.com/WalkingDead3/manifest.git --depth 1 -b RR .repo/local_manifests
+        - repo init --depth=1 --no-repo-verify -u $repo_rom -b lineage-18.1     
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+        - git clone https://github.com/WalkingProjekt-juice/android_device_xiaomi_juice --depth 1 -b lineage-18.1 device/xiaomi/juice
+        - git clone https://github.com/WalkingProjekt-juice/android_kernel_xiaomi_bengal --depth 1 -b 11.0 kernel/xiaomi/juice
+        - git clone https://github.com/WalkingProjekt-juice/android_vendor_xiaomi_juice --depth 1 -b 11 vendor/xiaomi/juice
+        - git clone https://github.com/WalkingProjekt-juice/proton-clang --depth 1 -b master prebuilts/clang/host/linux-x86/clang-proton   
     Build-Sync-Upload-script:
         - bash build.sh
     
