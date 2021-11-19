@@ -1,6 +1,6 @@
 env:
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
-    url: "https://roms.apon77.workers.dev/ccache/ci2/ccache.tar.gz"
+    url: "https://anu.inok189.workers.dev/nusantara/ccache.tar.gz"
     repo_rom: "git://github.com/LineageOS/android.git"
 task:
     name: Build
