@@ -20,7 +20,7 @@ task:
         - rm -rf ccache.tar.gz
         - mkdir -p /tmp/rom
         - cd /tmp/rom
-        - repo init --depth=1 --no-repo-verify -u $repo_rom -b lineage-18.1     
+        - repo init --depth=1 --no-repo-verify -u $repo_rom -b lineage-18.1 -g default,-mips,-darwin,-notdefault     
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
         - git clone https://github.com/WalkingProjekt-juice/android_device_xiaomi_juice --depth 1 -b lineage-18.1 device/xiaomi/juice
         - git clone https://github.com/WalkingProjekt-juice/android_kernel_xiaomi_bengal --depth 1 -b 11.0 kernel/xiaomi/juice
