@@ -1,6 +1,6 @@
 env:
+    # rclone_config
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
-    url: "https://anu.inok189.workers.dev/nusantara/ccache.tar.gz"
     # Repo ROM
     repo_rom: "https://github.com/hentaiOS/platform_manifest"
     # Repo DT/VT/KT/Clang
@@ -16,7 +16,7 @@ env:
 
 task:
     name: Build
-    timeout_in: 480m
+    timeout_in: 120m
     container:
       image: walkingdead666/android:latest
       cpu: 8
@@ -32,7 +32,7 @@ task:
         - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
         - git clone $repo_device --depth 1 -b 11.0 $path_device
         - git clone $repo_vendor --depth 1 -b 11 $path_vendor
-        - git clone $repo_kernel -b 11.0 $path_kernel
+        - git clone $repo_kernel --depth 1 -b 11.0 $path_kernel
         - git clone $repo_clang --depth 1 -b master $path_clang
     Build_script:
         - bash build.sh
