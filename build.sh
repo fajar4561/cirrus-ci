@@ -7,7 +7,7 @@ env
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
-ccache -M 20G
+ccache -M 15G
 ccache -o compression=true
 ccache -z
 
