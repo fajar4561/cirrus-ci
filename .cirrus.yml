@@ -29,7 +29,7 @@ task:
         - mkdir -p /tmp/rom
         - cd /tmp/rom
         - repo init -u $repo_rom -b Rika -g default,-mips,-darwin,-notdefault
-        - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
     Build_script:
         - bash build.sh
