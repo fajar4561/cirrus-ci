@@ -11,6 +11,10 @@ ccache -M 15G
 ccache -o compression=true
 ccache -z
 
+#
+#
+#
+
 cd /tmp/rom
 source build/envsetup.sh
 lunch hentai_juice-userdebug
