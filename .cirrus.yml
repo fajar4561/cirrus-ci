@@ -30,6 +30,11 @@ task:
         - cd /tmp/rom
         - repo init -u $repo_rom -b Rika -g default,-mips,-darwin,-notdefault
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+        
+        - git clone $repo_device --depth 1 -b 11.0 $path_device
+        - git clone $repo_vendor --depth 1 -b 11 $path_vendor
+        - git clone $repo_kernel --depth 1 -b 11.0 $path_kernel
+        - git clone $repo_clang --depth 1 -b master $path_clang
 
     Build_script:
         - bash build.sh
