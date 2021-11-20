@@ -1,7 +1,9 @@
 env:
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
     url: "https://anu.inok189.workers.dev/nusantara/ccache.tar.gz"
-    repo_rom: "git://github.com/LineageOS/android.git"
+    repo_rom: "https://github.com/hentaiOS/platform_manifest"
+    repo_device: "https://github.com/WalkingDead3/android_device_xiaomi_juice"
+    repo_vendor: "https://github.com/WalkingProjekt-juice/android_vendor_xiaomi_juice"
 task:
     name: Build
     timeout_in: 480m
@@ -16,12 +18,10 @@ task:
         - df -h && free -h && nproc && cat /etc/os* && env
         - mkdir -p /tmp/rom
         - cd /tmp/rom
-        - repo init --depth=1 --no-repo-verify -u $repo_rom -b lineage-18.1 -g default,-mips,-darwin,-notdefault     
-        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-        - git clone https://github.com/WalkingProjekt-juice/android_device_xiaomi_juice --depth 1 -b lineage-18.1 device/xiaomi/juice
-        - git clone https://github.com/WalkingProjekt-juice/android_kernel_xiaomi_bengal --depth 1 -b 11.0 kernel/xiaomi/juice
-        - git clone https://github.com/WalkingProjekt-juice/android_vendor_xiaomi_juice --depth 1 -b 11 vendor/xiaomi/juice
-        - git clone https://github.com/WalkingProjekt-juice/proton-clang --depth 1 -b master prebuilts/clang/host/linux-x86/clang-proton   
-    Build-Sync-Upload-script:
+        - repo init -u $repo_rom -b Rika     
+        - repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+        - git clone $repo_device --depth 1 -b 11.0 device/xiaomi/juice
+        - git clone $repo_vendor --depth 1 -b 11 vendor/xiaomi/juice 
+    Build_script:
         - bash build.sh
     
