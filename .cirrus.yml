@@ -35,6 +35,7 @@ task:
         - git clone --depth=1 $repo_vendor -b 11 $path_vendor
         - git clone --depth=1 $repo_kernel -b 11.0 $path_kernel
         - git clone --depth=1 $repo_clang -b master $path_clang
+        - rm -rf device/generic/opengl-transport
 
     Build_script:
         - bash build.sh
