@@ -28,13 +28,13 @@ task:
         - df -h && free -h && nproc && cat /etc/os* && env
         - mkdir -p /tmp/rom
         - cd /tmp/rom
-        - repo init -u $repo_rom -b Rika -g default,-mips,-darwin,-notdefault
+        - repo init -q --no-repo-verify --depth=1 -u $repo_rom -b Rika -g default,-device,-mips,-darwin,-notdefault
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
         
-        - git clone $repo_device --depth 1 -b 11.0 $path_device
-        - git clone $repo_vendor --depth 1 -b 11 $path_vendor
-        - git clone $repo_kernel --depth 1 -b 11.0 $path_kernel
-        - git clone $repo_clang --depth 1 -b master $path_clang
+        - git clone --depth=1 $repo_device -b 11.0 $path_device
+        - git clone --depth=1 $repo_vendor -b 11 $path_vendor
+        - git clone --depth=1 $repo_kernel -b 11.0 $path_kernel
+        - git clone --depth=1 $repo_clang -b master $path_clang
 
     Build_script:
         - bash build.sh
