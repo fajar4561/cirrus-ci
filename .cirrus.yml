@@ -16,7 +16,7 @@ env:
 
 task:
     name: Build
-    timeout_in: 120m
+    timeout_in: 2h
     container:
       image: walkingdead666/android:latest
       cpu: 8
