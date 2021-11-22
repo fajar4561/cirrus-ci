@@ -16,6 +16,6 @@ export USE_CCACHE=1
 ccache -M 20G
 ccache -o compression=true
 ccache -z
-mka bacon -j$(nproc --all)
+mka bacon
 cd /tmp
 rclone copy /tmp/rom/out/target/product/citrus/RROS*.zip WalkingDead:juice -P
