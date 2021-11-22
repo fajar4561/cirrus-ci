@@ -4,11 +4,10 @@ nproc
 cat /etc/os*
 env
 
-
 cd /tmp/rom
 source build/envsetup.sh
-lunch hentai_juice-userdebug
+lunch rr_citrus-userdebug
 export SELINUX_IGNORE_NEVERALLOWS=true
-make otapackage -j$(nproc --all)
+mka bacon -j$(nproc --all)
 cd /tmp
-rclone copy /tmp/rom/out/target/product/juice/hentai*.zip WalkingDead:juice -P
+rclone copy /tmp/rom/out/target/product/citrus/RROS*.zip WalkingDead:juice -P
