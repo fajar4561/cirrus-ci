@@ -21,7 +21,7 @@ env:
     rom_branch: "Q"
 
 task:
-    name: Build
+    name: Sync/Build/Upload...
     timeout_in: 2h
     container:
       image: walkingdead666/android:latest
