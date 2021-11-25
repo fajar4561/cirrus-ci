@@ -1,24 +1,5 @@
 env:
-    # rclone_config
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
-    # Repo ROM
-    #repo_rom: "https://github.com/ResurrectionRemix/platform_manifest.git"
-    # Repo DT/VT/KT/Clang
-    #repo_device: "https://github.com/WalkingDead3/device_xiaomi_citrus"
-    #repo_kernel: "https://github.com/WalkingDead3/kernel_xiaomi_citrus"
-    #repo_vendor: "https://github.com/WalkingDead3/vendor_xiaomi_citrus"
-    #repo_clang: "https://github.com/WalkingProjekt-juice/proton-clang"
-    # Path DT/VT/KT/Clang
-    #path_device: "device/xiaomi/citrus"
-    #path_kernel: "kernel/xiaomi/citrus"
-    #path_vendor: "vendor/xiaomi/citrus"
-    #path_clang: "prebuilts/clang/host/linux-x86/clang-proton"
-    # Branches
-    #device_branch:  "RR"
-    #kernel_branch:  "main"
-    #vendor_branch:  "los17"
-    #clang_branch:   "master"
-    #rom_branch: "Q"
 
 task:
     name: Sync/Build/Upload...
