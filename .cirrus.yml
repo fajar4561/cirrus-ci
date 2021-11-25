@@ -5,7 +5,7 @@ env:
     # Repo DT/VT/KT/Clang
     repo_device: "https://github.com/WalkingDead3/aosp_xiaomi_juice"
     repo_vendor: "https://github.com/WalkingDead3/vendor_xiaomi_juice"
-    repo_kernel: "https://github.com/javashin/Xiaomi-Fury-Bengal-SD662"
+    repo_kernel: "https://github.com/MiBengal-Development/android_kernel_xiaomi_bengal"
     repo_clang: "https://github.com/WalkingProjekt-juice/proton-clang"
     # Path DT/VT/KT/Clang
     path_device: "device/xiaomi/juice"
@@ -14,7 +14,7 @@ env:
     path_clang: "prebuilts/clang/host/linux-x86/clang-proton"
     # Branches
     device_branch: "Rika"
-    kernel_branch:  "main"
+    kernel_branch:  "11.0"
     vendor_branch:  "11"
     clang_branch:   "master"
     rom_branch: "Rika"
