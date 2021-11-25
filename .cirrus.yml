@@ -39,6 +39,7 @@ task:
         - git clone --depth=1 $repo_kernel -b $kernel_branch $path_kernel
         - git clone --depth=1 $repo_vendor -b $vendor_branch $path_vendor
         - git clone --depth=1 $repo_clang -b $clang_branch $path_clang
+        - rm -rf device/generic/opengl-transport
     Build_script:
         - bash build.sh
     
