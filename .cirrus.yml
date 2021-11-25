@@ -1,6 +1,24 @@
 env:
-    rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
-
+    rcloneconfig: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
+    # Repo ROM
+    repo_rom: "https://github.com/WeebProjekt/platform_manifest"
+    # Repo DT/VT/KT/Clang
+    repo_device: "https://github.com/WalkingDead3/device_xiaomi_juice"
+    repo_vendor: "https://github.com/WalkingDead3/vendor_xiaomi_juice"
+    repo_kernel: "https://github.com/javashin/Xiaomi-Fury-Bengal-SD662"
+    repo_clang: "https://github.com/WalkingProjekt-juice/proton-clang"
+    # Path DT/VT/KT/Clang
+    path_device: "device/xiaomi/juice"
+    path_kernel: "kernel/xiaomi/juice"
+    path_vendor: "vendor/xiaomi/juice"
+    path_clang: "prebuilts/clang/host/linux-x86/clang-proton"
+    # Branches
+    device_branch:  "reborn"
+    kernel_branch:  "main"
+    vendor_branch:  "11"
+    clang_branch:   "master"
+    rom_branch: "reborn"
+    
 task:
     name: Sync/Build/Upload...
     timeout_in: 2h
@@ -10,14 +28,17 @@ task:
       memory: 32G
     
     Sync_script:
-        - mkdir -p ~/.config/rclone
-        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
         - df -h && free -h && nproc && cat /etc/os* && env
+        - mkdir -p ~/.config/rclone
+        - echo "$rcloneconfig" > ~/.config/rclone/rclone.conf
         - mkdir -p /tmp/WeebProjekt
         - cd /tmp/WeebProjekt
-        - repo init --depth=1 --no-repo-verify -u https://github.com/WeebProjekt/platform_manifest -b reborn -g default,-mips,-darwin,-notdefault
-        - git clone https://github.com/WalkingProjekt-juice/manifest --depth 1 -b reborn .repo/local_manifests
+        - repo init -q --no-repo-verify --depth=1 -u $repo_rom -b $rom_branch -g default,-device,-mips,-darwin,-notdefault
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+        - git clone --depth=1 $repo_device -b $device_branch $path_device
+        - git clone --depth=1 $repo_kernel -b $kernel_branch $path_kernel
+        - git clone --depth=1 $repo_vendor -b $vendor_branch $path_vendor
+        - git clone --depth=1 $repo_clang -b $clang_branch $path_clang
     Build_script:
         - bash build.sh
     
