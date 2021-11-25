@@ -20,5 +20,5 @@ com ()
 
 time com ccache 1
 
-rclone copy /tmp/hentaiOS/out/target/product/juice/Weeb*.zip WalkingDead:juice -P
+rclone copy /tmp/hentaiOS/out/target/product/juice/*.zip WalkingDead:juice -P
 rclone copy ccache.tar.gz WalkingDead:juice -P
