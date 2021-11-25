@@ -2,23 +2,23 @@ env:
     # rclone_config
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
     # Repo ROM
-    repo_rom: "https://github.com/ResurrectionRemix/platform_manifest.git"
+    #repo_rom: "https://github.com/ResurrectionRemix/platform_manifest.git"
     # Repo DT/VT/KT/Clang
-    repo_device: "https://github.com/WalkingDead3/device_xiaomi_citrus"
-    repo_kernel: "https://github.com/WalkingDead3/kernel_xiaomi_citrus"
-    repo_vendor: "https://github.com/WalkingDead3/vendor_xiaomi_citrus"
-    repo_clang: "https://github.com/WalkingProjekt-juice/proton-clang"
+    #repo_device: "https://github.com/WalkingDead3/device_xiaomi_citrus"
+    #repo_kernel: "https://github.com/WalkingDead3/kernel_xiaomi_citrus"
+    #repo_vendor: "https://github.com/WalkingDead3/vendor_xiaomi_citrus"
+    #repo_clang: "https://github.com/WalkingProjekt-juice/proton-clang"
     # Path DT/VT/KT/Clang
-    path_device: "device/xiaomi/citrus"
-    path_kernel: "kernel/xiaomi/citrus"
-    path_vendor: "vendor/xiaomi/citrus"
-    path_clang: "prebuilts/clang/host/linux-x86/clang-proton"
+    #path_device: "device/xiaomi/citrus"
+    #path_kernel: "kernel/xiaomi/citrus"
+    #path_vendor: "vendor/xiaomi/citrus"
+    #path_clang: "prebuilts/clang/host/linux-x86/clang-proton"
     # Branches
-    device_branch:  "RR"
-    kernel_branch:  "main"
-    vendor_branch:  "los17"
-    clang_branch:   "master"
-    rom_branch: "Q"
+    #device_branch:  "RR"
+    #kernel_branch:  "main"
+    #vendor_branch:  "los17"
+    #clang_branch:   "master"
+    #rom_branch: "Q"
 
 task:
     name: Sync/Build/Upload...
@@ -32,17 +32,11 @@ task:
         - mkdir -p ~/.config/rclone
         - echo "$rclone_config" > ~/.config/rclone/rclone.conf
         - df -h && free -h && nproc && cat /etc/os* && env
-        - mkdir -p /tmp/rom
-        - cd /tmp/rom
-        - repo init -q --no-repo-verify --depth=1 -u $repo_rom -b $rom_branch -g default,-device,-mips,-darwin,-notdefault
+        - mkdir -p /tmp/WeebProjekt
+        - cd /tmp/WeebProjekt
+        - repo init --depth=1 --no-repo-verify -u https://github.com/WeebProjekt/platform_manifest -b reborn -g default,-mips,-darwin,-notdefault
+        - git clone https://github.com/WalkingProjekt-juice/manifest --depth 1 -b reborn .repo/local_manifests
         - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-        
-        - git clone --depth=1 $repo_device -b $device_branch $path_device
-        #- git clone --depth=1 $repo_kernel -b $kernel_branch $path_kernel
-        - git clone --depth=1 $repo_vendor -b $vendor_branch $path_vendor
-        #- git clone --depth=1 $repo_clang -b $clang_branch $path_clang
-        - rm -rf device/generic/opengl-transport
-
     Build_script:
         - bash build.sh
     
