@@ -10,15 +10,5 @@ task:
       memory: 32G
     
     Sync_script:
-        - mkdir -p ~/.config/rclone
-        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
-        - df -h && free -h && nproc && cat /etc/os* && env
-        - mkdir -p /tmp/WeebProjekt
-        - cd /tmp/WeebProjekt
-        - repo init --depth=1 --no-repo-verify -u https://github.com/WeebProjekt/platform_manifest -b reborn -g default,-mips,-darwin,-notdefault
-        - git clone https://github.com/WalkingProjekt-juice/manifest --depth 1 -b reborn .repo/local_manifests
-        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-        - rm -rf device/generic/opengl-transport
-    Build_script:
         - bash build.sh
     
