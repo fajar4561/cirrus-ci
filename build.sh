@@ -31,11 +31,7 @@ function compile() {
 }
 
 function sendinfo {
-    curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
-        -d chat_id=$chat_id \
-        -d "disable_web_page_preview=true" \
-        -d "parse_mode=html" \
-        -d text="<b>• Apocalypse-Kernel •</b>%0ABuild started on <code>Cirrus-CI</code>%0AFor device <b>Poco M3</b> (citrus)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>Eva GCC</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #Test-CI"
+    curl -F "caption=<b>• Apocalypse-Kernel •</b>%0ABuild started on <code>Cirrus-CI</code>%0AFor device <b>Poco M3</b> (citrus)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>Eva GCC</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #Test-CI" "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$chat_id&parse_mode=Markdown"
 }	
 
 function push() {
