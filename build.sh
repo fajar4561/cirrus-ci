@@ -30,15 +30,9 @@ function compile() {
     cp out/arch/arm64/boot/Image AnyKernel3
 }
 
-function sticker {
-    curl -s -X POST "https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendSticker" \
-        -d sticker="CAADBQADVAADaEQ4KS3kDsr-OWAUFgQ" \
-        -d chat_id=@WalkingCI
-}
-
 function sendinfo {
-    curl -s -X POST "https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendMessage" \
-        -d chat_id=@WalkingCI \
+    curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
+        -d chat_id=$chat_id \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
         -d text="<b>• Apocalypse-Kernel •</b>%0ABuild started on <code>Cirrus-CI</code>%0AFor device <b>Poco M3</b> (citrus)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>Eva GCC</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #Test-CI"
@@ -47,7 +41,7 @@ function sendinfo {
 function push() {
     cd AnyKernel3
     ZIP=$(echo *.zip)
-    curl -F document=@"${ZIP}" -F "caption=Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s). | For <b>Poco M3 (citrus)</b>" "https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendDocument?chat_id=@WalkingCI&parse_mode=Markdown"
+    curl -F document=@"${ZIP}" -F "caption=Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s). | For <b>Poco M3 (citrus)</b>" "https://api.telegram.org/bot$bot_token/sendDocument?chat_id=$chat_id&parse_mode=Markdown"
 }
 
 # Zipping
@@ -57,7 +51,6 @@ function zipping() {
     cd ..
 }
 
-sticker
 sendinfo
 compile
 zipping
