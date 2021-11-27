@@ -37,12 +37,14 @@ function sticker {
 }
 
 function sendinfo {
-    curl -s -X POST "https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendMessage" \
-        -d chat_id=@WalkingCI \
-        -d "disable_web_page_preview=true" \
-        -d "parse_mode=html" \
-        -d text="<b>• ApocalypseKernel •</b>%0ABuild started on <code>Cirrus-CI</code>%0AFor device <b>Poco M3</b> (citrus)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>Proton clang 12</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #AOSP-Alpha"
-}
+	curl -F 
+	"caption=• ApocalypseKernel •
+	</b>%0ABuild started on <code>Cirrus-CI</code>%0A
+	For device <b>Poco M3</b> (citrus)
+	%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A
+	Using compiler: <code>Eva GCC</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #Alpha" 
+	"https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendMessage?chat_id=@WalkingCI&parse_mode=Markdown"
+}	
 
 function push() {
     cd AnyKernel3
