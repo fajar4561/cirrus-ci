@@ -1,14 +1,17 @@
 env:
     rclone_config: "ENCRYPTED[c0d1ee032728b1b5358ab3d5864f6e66e9a0c04c63ecb41c611ae766739861c0759514566e1a24b58bb8c072ccb8771c]"
+    bot_token:  "2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q"
+    chat_id:    "@WalkingCI"
+    
 
 task:
-    name: Sync/Build/Upload...
+    name: Build
     timeout_in: 2h
     container:
       image: walkingdead666/android:latest
       cpu: 8
       memory: 32G
     
-    Sync_script:
+    Build_script:
         - bash build.sh
     
