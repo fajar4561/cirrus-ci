@@ -69,4 +69,3 @@ zipping
 END=$(date +"%s")
 DIFF=$(($END - $START))
 push
-echo "Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s)."
