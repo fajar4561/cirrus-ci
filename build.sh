@@ -37,28 +37,23 @@ function sticker {
 }
 
 function sendinfo {
-	curl -F 
-	"caption=• ApocalypseKernel •
-	</b>%0ABuild started on <code>Cirrus-CI</code>%0A
-	For device <b>Poco M3</b> (citrus)
-	%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A
-	Using compiler: <code>Eva GCC</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #Alpha" 
-	"https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendMessage?chat_id=@WalkingCI&parse_mode=Markdown"
+    curl -s -X POST "https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendMessage" \
+        -d chat_id=@WalkingCI \
+        -d "disable_web_page_preview=true" \
+        -d "parse_mode=html" \
+        -d text="<b>• Apocalypse-Kernel •</b>%0ABuild started on <code>Cirrus-CI</code>%0AFor device <b>Poco M3</b> (citrus)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code>(master)%0AUnder commit <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>Eva GCC</code>%0AStarted on <code>$(date)</code>%0A<b>Build Status:</b> #Test-CI"
 }	
 
 function push() {
     cd AnyKernel3
     ZIP=$(echo *.zip)
-	curl -F document=@"${ZIP}" -F 
-	"caption=Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s).
-    Apocalypse-Kernel for <b>Poco M3 (citrus)</b>" 
-	"https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendDocument?chat_id=@WalkingCI&parse_mode=Markdown"
+    curl -F document=@"${ZIP}" -F "caption=Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s). | For <b>Poco M3 (citrus)</b>" "https://api.telegram.org/bot2077617614:AAFOXH87MefDeZQO2LmTLVFAHYyQB8pW05Q/sendDocument?chat_id=@WalkingCI&parse_mode=Markdown"
 }
 
 # Zipping
 function zipping() {
     cd AnyKernel3 || exit 1
-    zip -r9 Apocalypse-juice-$(date +%Y%m%d-%H%M).zip *
+    zip -r9 Apocalypse-TEST-$(date +%Y%m%d-%H%M).zip *
     cd ..
 }
 
